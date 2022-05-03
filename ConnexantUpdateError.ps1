@@ -9,7 +9,7 @@ Start-Process -Wait -FilePath "C:\Program Files\CONEXANT\CNXT_AUDIO_HDA\UIU64a.e
 
 
 Stop-Service -Name "wuauserv" -Force
-Remove-Item -Path "C:\Windows\SoftwareDistribution\Download" -Recurse -Force
+Remove-Item -Path "C:\Windows\SoftwareDistribution\*" -Recurse -Force
 
 # start windows update
 control update
