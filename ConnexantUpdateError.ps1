@@ -1,5 +1,5 @@
 Write-Host "Disable Conexant ISST Audio device"
-Get-PnpDevice -Class media -InstanceId 'intel*' -OutVariable audio
+Get-PnpDevice -Class media -InstanceId "intel*" -OutVariable audio
 Disable-PnpDevice -InputObject $audio -Confirm:$false
 
 
@@ -18,7 +18,14 @@ control update
 UsoClient StartInteractiveScan
 
 # kopiowanie jednorazowego skryptu "EnableSound.bat"
-Copy-Item ".\EnableSound.bat" -Destination "C:\Temp"
+# xcopy "%~dp0EnableSound.bat" "C:\Temp"
+
+# tworzenie jednorazowego skryptu "EnableSound.bat"
+New-Item -Path "C:\Temp\EnableSound.txt" -ItemType File
+Set-Content -Path "C:\Temp\EnableSound.txt" -Value "powershell.exe -executionpolicy bypass Get-PnpDevice -Class media -InstanceId 'intel*' -PipelineVariable audio; Enable-PnpDevice -InputObject $audio -Confirm:$false"
+Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'control update'
+Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'UsoClient StartInteractiveScan'
+Rename-Item -Path "C:\Temp\EnableSound.txt" -NewName "C:\Temp\EnableSound.bat"
 
 
 # dodaje jednorazowy klucz rejestru, ktory uruchamia EnableSound.bat przy nastepnym restarcie
