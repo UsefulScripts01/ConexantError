@@ -1,5 +1,6 @@
 Write-Host "Disable Conexant ISST Audio device"
-Get-PnpDevice -FriendlyName "Conexant ISST Audio" | Disable-PnpDevice -confirm:$false
+Get-PnpDevice -Class Media | Disable-PnpDevice -AsJob
+
 
 Write-Host "Delete Conexant software and drivers. Please wait.."
 Start-Process -Wait -FilePath "C:\Program Files\CONEXANT\CNXT_AUDIO_HDA\UIU64a.exe" -ArgumentList "-U -R -G -S -Icisstrt.inf -OI=IntcAudioBus.inf"
@@ -14,7 +15,7 @@ UsoClient StartInteractiveScan
 
 # tworzenie jednorazowego skryptu "EnableSound.bat"
 New-Item -Path "C:\Temp\EnableSound.txt" -ItemType File
-Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'powershell.exe  -NoProfile -ExecutionPolicy Bypass -Command "& {Get-PnpDevice -FriendlyName "High Definition Audio Device" | Enable-PnpDevice -confirm:$false}"'
+Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'powershell.exe  -NoProfile -ExecutionPolicy Bypass -Command "& {Get-PnpDevice -Class Media | Enable-PnpDevice -AsJob}"'
 Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'control update'
 Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'UsoClient StartInteractiveScan'
 Rename-Item -Path "C:\Temp\EnableSound.txt" -NewName "C:\Temp\EnableSound.bat"
