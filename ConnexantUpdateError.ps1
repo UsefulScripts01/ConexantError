@@ -1,5 +1,7 @@
 Write-Host "Disable Conexant ISST Audio device"
-Get-CimInstance -Class Win32_PNPEntity -Property Manufacturer -Filter 'Manufacturer LIKE "%conexant%"' | Disable-PnpDevice -confirm:$false
+Get-PnpDevice -Class media -InstanceId 'intel*' -OutVariable audio
+Disable-PnpDevice -InputObject $audio -Confirm:$false
+
 
 write-host "`n"
 write-host "`n"
@@ -16,7 +18,7 @@ control update
 UsoClient StartInteractiveScan
 
 # kopiowanie jednorazowego skryptu "EnableSound.bat"
-Copy-Item "%~dp0EnableSound.bat" -Destination "C:\Temp"
+Copy-Item ".\EnableSound.bat" -Destination "C:\Temp"
 
 
 # dodaje jednorazowy klucz rejestru, ktory uruchamia EnableSound.bat przy nastepnym restarcie

@@ -1,4 +1,3 @@
-powershell.exe -executionpolicy bypass Get-CimInstance -Class Win32_PNPEntity -Property Manufacturer -Filter 'Manufacturer LIKE "%conexant%"' | Disable-PnpDevice -confirm:$false
+powershell.exe -executionpolicy bypass -Command "& {Get-PnpDevice -Class media -InstanceId 'intel*' -OutVariable audio; Enable-PnpDevice -InputObject $audio -Confirm:$false}"
 control update
 UsoClient StartInteractiveScan
-pause
