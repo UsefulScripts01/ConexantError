@@ -1,5 +1,7 @@
+# disable Conexant sound card
 Write-Host "Disable Conexant ISST Audio device"
 Get-PnpDevice | Where-Object {$_.Manufacturer -contains "conexant"} | Disable-PnpDevice -Confirm:$false
+#Get-PnpDevice | Where-Object {$_.Manufacturer -contains "conexant"} | Enable-PnpDevice -Confirm:$false
 
 write-host "`n"
 write-host "`n"
@@ -20,7 +22,7 @@ UsoClient StartInteractiveScan
 
 # tworzenie jednorazowego skryptu "EnableSound.bat"
 New-Item -Path "C:\Temp\EnableSound.txt" -ItemType File
-Set-Content -Path "C:\Temp\EnableSound.txt" -Value "powershell.exe -executionpolicy bypass Get-PnpDevice | Where-Object {$_.Manufacturer -contains "conexant"} | Enable-PnpDevice -Confirm:$false"
+Set-Content -Path "C:\Temp\EnableSound.txt" -Value 'powershell.exe -executionpolicy bypass Get-PnpDevice | Where-Object {$_.Manufacturer -contains "conexant"} | Enable-PnpDevice -Confirm:$false'
 Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'control update'
 Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'UsoClient StartInteractiveScan'
 Rename-Item -Path "C:\Temp\EnableSound.txt" -NewName "C:\Temp\EnableSound.bat"
