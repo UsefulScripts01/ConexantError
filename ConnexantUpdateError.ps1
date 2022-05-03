@@ -1,6 +1,8 @@
 Write-Host "Disable Conexant ISST Audio device"
-Get-PnpDevice -Class Media | Disable-PnpDevice -AsJob
+Get-PnpDevice -Class Media -FriendlyName "Conexant ISST Audio device" | Disable-PnpDevice -AsJob
 
+write-host "`n"
+write-host "`n"
 
 Write-Host "Delete Conexant software and drivers. Please wait.."
 Start-Process -Wait -FilePath "C:\Program Files\CONEXANT\CNXT_AUDIO_HDA\UIU64a.exe" -ArgumentList "-U -R -G -S -Icisstrt.inf -OI=IntcAudioBus.inf"
@@ -23,7 +25,11 @@ Rename-Item -Path "C:\Temp\EnableSound.txt" -NewName "C:\Temp\EnableSound.bat"
 # dodaje jednorazowy klucz rejestru, ktory uruchamia EnableSound.bat przy nastepnym restarcie
 reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v !EnableSound /t REG_SZ /d "C:\Temp\EnableSound.bat"
 
+write-host "`n"
+write-host "`n"
+
 Write-Host "DONE"
-Write-Host "PRESS ANY KEY TO RESTART?"
+Write-Host "PRESS ANY KEY TO RESTART"
+
 pause
 Restart-Computer
