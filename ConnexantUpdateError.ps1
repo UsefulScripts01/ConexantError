@@ -21,11 +21,14 @@ control update
 UsoClient StartInteractiveScan
 
 # kopiowanie jednorazowego skryptu "EnableSound.bat"
-Copy-Item -path "C:\Users\dawid\Documents\GitHub\ConexantError\*" -Destination "C:\Temp\" -Force
+#Set-Location -Path $PSCommandPath -PassThru
+Set-Location -Path "C:\Users\dawid\Documents\GitHub\ConexantError"
+
+Copy-Item "EnableSound.bat" -Destination "C:\Temp\" -Force
 
 
 # dodaje jednorazowy klucz rejestru, ktory uruchamia EnableSound.bat przy nastepnym restarcie
-reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v !EnableSound /t REG_SZ /d "C:\Temp\EnableSound.bat"
+reg.exe add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v !EnableSound /t REG_SZ /d "C:\Temp\EnableSound.bat" /f
 
 write-host "`n"
 write-host "`n"

@@ -1,1 +1,3 @@
-powershell.exe -executionpolicy bypass -File "C:\Temp\ConnexantUpdateError.ps1"
+@echo off
+set WD=%~dp0
+Powershell.exe -NoProfile -executionpolicy Bypass -File "%WD%ConnexantUpdateError.ps1"
