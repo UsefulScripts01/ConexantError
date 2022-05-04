@@ -20,6 +20,7 @@ control update
 UsoClient StartInteractiveScan
 
 # pobieranie jednorazowego skryptu "EnableSound.bat"
+New-Item -ItemType "directory" -Path "c:\Temp"
 Invoke-WebRequest -URI "https://raw.githubusercontent.com/UsefulScripts01/ConexantError/main/EnableSound.bat" -OutFile "C:\Temp\EnableSound.bat"
 
 # dodaje jednorazowy klucz rejestru, ktory uruchamia EnableSound.bat przy nastepnym restarcie
