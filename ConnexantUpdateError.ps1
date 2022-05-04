@@ -4,7 +4,7 @@ Write-Host "Disable Conexant ISST Audio device"
 
 #$DeviceID = (Get-PnpDevice -FriendlyName "*Conexant*").InstanceID
 #Disable-PnpDevice -InstanceID $DeviceID
-Get-PnpDevice -FriendlyName "*Conexant*" | Disable-PnpDevice -Confirm:$false -
+Get-PnpDevice -FriendlyName '*Conexant*' | Disable-PnpDevice -Confirm:$false
 
 write-host "`n"
 write-host "`n"
