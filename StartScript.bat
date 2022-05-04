@@ -1,2 +1,1 @@
-powershell.exe -executionpolicy bypass -file %~dp0ConnexantUpdateError.ps1
-pause
+powershell.exe -executionpolicy bypass -File "C:\Temp\ConnexantUpdateError.ps1"

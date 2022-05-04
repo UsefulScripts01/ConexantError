@@ -1,7 +1,10 @@
+
 # disable Conexant sound card
 Write-Host "Disable Conexant ISST Audio device"
-Get-PnpDevice | Where-Object {$_.Manufacturer -contains "conexant"} | Disable-PnpDevice -Confirm:$false
-#Get-PnpDevice | Where-Object {$_.Manufacturer -contains "conexant"} | Enable-PnpDevice -Confirm:$false
+
+#$DeviceID = (Get-PnpDevice -FriendlyName "*Conexant*").InstanceID
+#Disable-PnpDevice -InstanceID $DeviceID
+Get-PnpDevice -FriendlyName "*Conexant*" | Disable-PnpDevice -Confirm:$false
 
 write-host "`n"
 write-host "`n"
@@ -18,14 +21,7 @@ control update
 UsoClient StartInteractiveScan
 
 # kopiowanie jednorazowego skryptu "EnableSound.bat"
-# xcopy "%~dp0EnableSound.bat" "C:\Temp"
-
-# tworzenie jednorazowego skryptu "EnableSound.bat"
-New-Item -Path "C:\Temp\EnableSound.txt" -ItemType File
-Set-Content -Path "C:\Temp\EnableSound.txt" -Value 'powershell.exe -executionpolicy bypass Get-PnpDevice | Where-Object {$_.Manufacturer -contains "conexant"} | Enable-PnpDevice -Confirm:$false'
-Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'control update'
-Add-Content -Path "C:\Temp\EnableSound.txt" -Value 'UsoClient StartInteractiveScan'
-Rename-Item -Path "C:\Temp\EnableSound.txt" -NewName "C:\Temp\EnableSound.bat"
+Copy-Item -path "C:\Users\dawid\Documents\GitHub\ConexantError\*" -Destination "C:\Temp\" -Force
 
 
 # dodaje jednorazowy klucz rejestru, ktory uruchamia EnableSound.bat przy nastepnym restarcie
@@ -34,8 +30,6 @@ reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v
 write-host "`n"
 write-host "`n"
 
-Write-Host "DONE"
-Write-Host "PRESS ANY KEY TO RESTART"
+Write-Host "DONE. Wait for all Windows Updates and restart the machine.."
 
 pause
-Restart-Computer
