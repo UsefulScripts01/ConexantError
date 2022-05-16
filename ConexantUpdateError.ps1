@@ -3,7 +3,7 @@
 Write-Host "Disable Conexant ISST Audio device" -ForegroundColor Yellow
 Get-PnpDevice -FriendlyName '*Conexant*' | Disable-PnpDevice -Confirm:$false
 
-# add empty linbes
+# add empty lines
 write-host "`n"
 write-host "`n"
 
